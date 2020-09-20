@@ -61,7 +61,7 @@ jobs:
       env:
         CHANNEL: windows-x64
         PACKAGE: Build/StandaloneWindows64
-    # Delete the artifact after we upload it to itch.io
-    #- uses: geekyeggo/delete-artifact@v1
-    #  with:
-    #    name: Build
+     Delete the artifact after we upload it to itch.io
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: Build
