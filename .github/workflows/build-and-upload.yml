@@ -1,4 +1,4 @@
-name: Build project
+name: Build and Upload Project
 on:
   push:
     tags:
@@ -32,7 +32,7 @@ jobs:
           restore-keys: |
             Library-${{ matrix.projectPath }}-
             Library-
-      - uses: webbertakken/unity-builder@v0.11
+      - uses: webbertakken/unity-builder@v1.2
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
