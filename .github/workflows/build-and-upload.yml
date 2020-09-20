@@ -21,6 +21,8 @@ jobs:
         targetPlatform:
           - StandaloneWindows # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
+        projectPath:
+          - Stormfront Game
     steps:
       - uses: actions/checkout@v2
         with:
@@ -60,6 +62,6 @@ jobs:
         CHANNEL: windows-x64
         PACKAGE: Build/StandaloneWindows64
     # Delete the artifact after we upload it to itch.io
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: build
+    #- uses: geekyeggo/delete-artifact@v1
+    #  with:
+    #    name: Build
