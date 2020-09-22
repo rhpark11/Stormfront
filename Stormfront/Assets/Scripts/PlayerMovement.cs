@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     Transform camPivot;
     float heading = 0;*/
     [SerializeField]
+    Rigidbody rb;
+
+    [SerializeField]
     Transform cam;
     [SerializeField]
     float speed = 5.0f;
@@ -17,29 +20,25 @@ public class PlayerMovement : MonoBehaviour
     
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
-    void Update()
+    void FixedUpdate()
     {
-        //Janky camera rotation
-        /*heading += Input.GetAxis("Mouse X")*Time.deltaTime*180;
-        camPivot.rotation = Quaternion.Euler(0,heading,0);*/
-
         //Player movement
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         input = Vector2.ClampMagnitude(input, 1);
         
         //Quick and dirty method to have camera relative movement inputs
         //Another way is to transform input vector into camera relative directions
+        //Camera forward and right vectors
         Vector3 camF = cam.forward;
         Vector3 camR = cam.right;
         camF.y = 0;
-        camF.y = 0;
+        camR.y = 0;
         camF = camF.normalized;
         camR = camR.normalized;
 
-        //transform.position += new Vector3(input.x,0,input.y)*Time.deltaTime*5;
-        transform.position += (camF*input.y + camR*input.x)*Time.deltaTime*speed;
-        
+        rb.velocity = (camF*input.y + camR*input.x)*speed;        
     }
 }
