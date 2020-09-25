@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     Transform player;
     [SerializeField]
     float lerpT = 0.1f;
+    [SerializeField]
+    Vector3 offset = new Vector3(0.0f, 10.7f, -10.0f);
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,7 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 playerPos = player.position + new Vector3(0.0f, 10.7f, -10.0f);
+        Vector3 playerPos = player.position + offset;
         transform.position = Vector3.Lerp(transform.position, playerPos, lerpT);
     }
 }

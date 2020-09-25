@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     //The way we're trying to rotate the camera is not the best way
@@ -16,15 +16,29 @@ public class PlayerMovement : MonoBehaviour
     Transform cam;
     [SerializeField]
     float speed = 5.0f;
+    [SerializeField]
+    float boostForce = 5.0f;
     Vector2 input;
+
+    [SerializeField]
+    Slider distanceSlider;
+    [SerializeField]
+    float initialDistance = 0f;
+    [SerializeField]
+    float finalDistance = 800f;
+
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        initialDistance = rb.transform.position.x;
     }
-    void FixedUpdate()
+
+    void Update()
     {
+        //Distance
+        distanceSlider.value = (rb.transform.position.x - initialDistance)/finalDistance;
         //Player movement
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         input = Vector2.ClampMagnitude(input, 1);
@@ -39,6 +53,17 @@ public class PlayerMovement : MonoBehaviour
         camF = camF.normalized;
         camR = camR.normalized;
 
-        rb.velocity = (camF*input.y + camR*input.x)*speed;        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce((camF*input.y + camR*input.x)*boostForce);
+        }else{
+            rb.velocity = (camF*input.y + camR*input.x)*speed;        
+        }
+    }
+
+    void FixedUpdate()
+    {
+        
+        
     }
 }
